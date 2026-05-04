@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyDrift - Beyond Velocity</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050914; /* 契合赛博朋克的深色背景 */
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* 动画容器 */
+        .cinematic-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 每一帧画面的基础设置 */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            /* 总时长15秒，无限循环 */
+            animation: cinematicFadeZoom 15s infinite; 
+        }
+
+        /* 绑定你的图片并设置出场延迟 (每张展示5秒，交替出现) */
+        .slide:nth-child(1) {
+            background-image: url('1.jpg'); /* 替换为你的第一张图的文件名 */
+            animation-delay: 0s;
+        }
+        .slide:nth-child(2) {
+            background-image: url('2.jpg'); /* 替换为你的第二张图的文件名 */
+            animation-delay: 5s;
+        }
+        .slide:nth-child(3) {
+            background-image: url('3.jpg'); /* 替换为你的第三张图的文件名 */
+            animation-delay: 10s;
+        }
+
+        /* 核心动画逻辑：透明度渐变 + 模拟飞船前进的视觉缩放 */
+        @keyframes cinematicFadeZoom {
+            0% {
+                opacity: 0;
+                transform: scale(1); /* 初始比例 */
+            }
+            8% {
+                opacity: 1; /* 快速淡入 */
+            }
+            25% {
+                opacity: 1; /* 保持可见 */
+            }
+            33% {
+                opacity: 0; /* 缓缓淡出 */
+                transform: scale(1.15) translate(-10px, 5px); /* 放大并轻微位移，模拟驾驶舱视角 */
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1); /* 重置 */
+            }
+        }
+
+        /* 顶层 UI 遮罩层 (模拟第一张图里的 TOUCH TO START) */
+        .ui-layer {
+            position: absolute;
+            bottom: 12%;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none; /* 让鼠标事件穿透UI层 */
+        }
+
+        .ui-layer h1 {
+            color: #fff;
+            letter-spacing: 15px;
+            font-size: 1.2rem;
+            text-shadow: 0 0 15px rgba(0, 150, 255, 0.8);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .start-btn {
+            color: #00d2ff;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            animation: pulse 2s infinite;
+        }
+
+        /* 模拟呼吸灯效果的提示词 */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; text-shadow: 0 0 10px #00d2ff; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cinematic-container">
+        <!-- 三个背景图层 -->
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <!-- 悬浮的UI层 -->
+    <div class="ui-layer">
+        <h1>Beyond Velocity</h1>
+        <div class="start-btn">« TOUCH TO START »</div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<h2>HexGL 开屏动画分镜确认</h2>
+<p class="subtitle">你当前选择的是：城市俯瞰 → 低空掠过赛道 → 飞船超近景掠过 → 引擎拉满并擦出火花 → 转场回首页菜单</p>
+
+<div class="section">
+  <div class="mockup">
+    <div class="mockup-header">10 秒开场分镜</div>
+    <div class="mockup-body">
+      <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+        <div style="padding:12px 14px;border:1px solid rgba(91,192,255,.25);border-radius:12px;background:rgba(9,17,31,.55);">
+          <div class="label">0s - 2.5s</div>
+          <h3>俯瞰霓虹城市</h3>
+          <p>高空镜头缓慢推进，城市楼体边缘发蓝紫霓虹，远处有扫描光束和薄雾，底层能看到发光赛道的轮廓。</p>
+        </div>
+        <div style="padding:12px 14px;border:1px solid rgba(91,192,255,.25);border-radius:12px;background:rgba(9,17,31,.55);">
+          <div class="label">2.5s - 5.0s</div>
+          <h3>压低镜头掠过赛道</h3>
+          <p>镜头突然下压贴近赛道，能量轨道和城市光带被拉成长条残影，速度感开始明显上升，伴随 HUD 扫描线和轻微镜头抖动。</p>
+        </div>
+        <div style="padding:12px 14px;border:1px solid rgba(91,192,255,.25);border-radius:12px;background:rgba(9,17,31,.55);">
+          <div class="label">5.0s - 7.5s</div>
+          <h3>飞船超近景掠过</h3>
+          <p>飞船从镜头一侧高速切入，推进器点亮，机体边缘高亮反射城市霓虹；镜头擦肩而过，突出金属感和速度压迫感。</p>
+        </div>
+        <div style="padding:12px 14px;border:1px solid rgba(91,192,255,.25);border-radius:12px;background:rgba(9,17,31,.55);">
+          <div class="label">7.5s - 9.0s</div>
+          <h3>引擎拉满 + 火花</h3>
+          <p>引擎声快速升转，尾焰增强，飞船贴赛道切过时爆出短促火花与能量拖尾，画面 bloom 提升到最强。</p>
+        </div>
+        <div style="padding:12px 14px;border:1px solid rgba(91,192,255,.25);border-radius:12px;background:rgba(9,17,31,.55);">
+          <div class="label">9.0s - 10.0s</div>
+          <h3>科技转场回首页</h3>
+          <p>随着一道白蓝能量闪切，标题和菜单元素从 HUD 扫描线中显现；背景仍保留轻微动态待机。任意时刻都可点击跳过，直接落到首页。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="keep" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>这个分镜就对了</h3>
+      <p>按这个节奏继续出正式设计。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="more-city" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>再强化城市镜头</h3>
+      <p>增加高楼、霓虹广告牌、远景层次，让开场更像科幻都市。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="more-ship" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>再强化飞船与引擎</h3>
+      <p>增加推进器特写、尾焰变化和火花细节，让飞船成为爆点。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="subtitle">浏览器地址：<strong>http://localhost:56392</strong></p>
+</div>
