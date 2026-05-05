@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>HexGL by BKcore</title>
+    <title>XlexGL by alex</title>
     <meta charset="utf-8">
     <meta name="description" content="HexGL is a futuristic racing game built by Thibaut Despoulain (BKcore) using HTML5, Javascript and WebGL. Come challenge your friends on this fast-paced 3D game!">
-    <meta property="og:title" content="HexGL, the HTML5 futuristic racing game." />
+    <meta property="og:title" content="XlexGL by alex" />
     <meta property="og:type" content="game" />
     <meta property="og:url" content="http://hexgl.bkcore.com/" />
     <meta property="og:image" content="http://hexgl.bkcore.com/image.png" />
-    <meta property="og:site_name" content="HexGL by BKcore" />
+    <meta property="og:site_name" content="XlexGL by alex" />
     <meta property="fb:admins" content="1482017639" />
     <link rel="icon" href="http://hexgl.bkcore.com/favicon.png" type="image/png">
     <link rel="shortcut icon" href="http://hexgl.bkcore.com/favicon.png" type="image/png">
@@ -49,17 +49,19 @@
       </div>
       <div id="menucontainer">
         <div id="menu">
-          <div id="start">Start</div>
-          <div id="s-controlType">Controls: Keyboard</div>
-          <div id="s-quality">Quality: High</div>
-          <div id="s-hud">HUD: On</div>
-          <div id="s-godmode" style="display: none">Godmode: Off</div>
-          <div id="s-credits">Credits</div>
+          <div id="start">开始游戏</div>
+          <div id="s-skin">更换皮肤：蓝色</div>
+          <div id="s-controlType">控制方式：键盘</div>
+          <div id="s-quality">画质：高</div>
+          <div id="s-hud">界面显示：开</div>
+          <div id="s-godmode" style="display: none">无敌模式：关</div>
+          <div id="s-credits">制作信息</div>
         </div>
+        <div id="brand">XlexGL by alex</div>
       </div>
     </div>
     <div id="step-2" style="display: none">
-      <div id="ctrl-help">Click/Touch to continue.</div>
+      <div id="ctrl-help">点击 / 触摸继续</div>
     </div>
     <div id="step-3" style="display: none">
       <div id="progressbar"></div>
@@ -70,7 +72,7 @@
     </div>
     <div id="step-5" style="display: none">
       <div id="time"></div>
-      <div id="ctrl-help">Click/Touch to continue.</div>
+      <div id="ctrl-help">点击 / 触摸继续</div>
     </div>
     <div id="credits" style="display: none">
       <h3>Code</h3>
@@ -81,6 +83,34 @@
       <p><b>HexMKI base model</b><br>Charnel</p>
       <p><b>Track texture</b><br>Nobiax</p>
       <h4>Click anywhere to continue.</h4>
+    </div>
+
+    <div id="skin-modal" style="display: none" aria-hidden="true">
+      <div id="skin-backdrop"></div>
+      <div id="skin-panel" role="dialog" aria-modal="true" aria-labelledby="skin-title">
+        <button id="skin-close" type="button" aria-label="关闭皮肤选择">×</button>
+        <h3 id="skin-title">选择飞船皮肤</h3>
+        <div id="skin-grid">
+          <button class="skin-option selected" data-skin="blue" type="button">
+            <img src="textures/ships/feisar/diffuse.jpg" alt="蓝色飞船皮肤预览">
+            <span>蓝色</span>
+          </button>
+          <button class="skin-option" data-skin="yellow" type="button">
+            <img src="textures/ships/feisar/diffuse-yellow-lightning.jpg" alt="黄色飞船皮肤预览">
+            <span>黄色</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pause-menu" style="display: none" aria-hidden="true">
+      <div id="pause-backdrop"></div>
+      <div id="pause-panel" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <h3 id="pause-title">游戏菜单</h3>
+        <button id="pause-resume" class="pause-action" type="button">继续游戏</button>
+        <button id="pause-reset" class="pause-action" type="button">重置游戏</button>
+        <button id="pause-home" class="pause-action" type="button">返回首页</button>
+      </div>
     </div>
 
     <div id="leapinfo" style="display: none"></div>

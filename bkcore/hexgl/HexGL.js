@@ -66,6 +66,8 @@ bkcore.hexgl.HexGL = function(opts)
 
 	this.gameover = opts.gameover == undefined ? null : opts.gameover;
 
+	this.shipTexture = opts.shipTexture || null;
+
 	this.godmode = opts.godmode == undefined ? false : opts.godmode;
 
 	this.hud = null;
@@ -78,15 +80,28 @@ bkcore.hexgl.HexGL = function(opts)
 
 	this.initRenderer();
 
-	function onKeyPress(event)
+	this.isPaused = false;
+	this.pauseMenu = this.document.getElementById('pause-menu');
+	this.pauseResumeButton = this.document.getElementById('pause-resume');
+	this.pauseResetButton = this.document.getElementById('pause-reset');
+	this.pauseHomeButton = this.document.getElementById('pause-home');
+	this.pauseHandlersBound = false;
+
+	this.bindPauseMenu();
+
+	this.onKeyDown = function(event)
 	{
-		if(event.keyCode == 27/*escape*/)
-		{
-			self.reset();
-		}
+		if(event.keyCode != 27/*escape*/)
+			return;
+
+		if(!self.canTogglePauseMenu())
+			return;
+
+		event.preventDefault && event.preventDefault();
+		self.togglePauseMenu();
 	}
 
-	this.document.addEventListener('keydown', onKeyPress, false);
+	this.document.addEventListener('keydown', this.onKeyDown, false);
 }
 
 bkcore.hexgl.HexGL.prototype.start = function()
@@ -106,6 +121,111 @@ bkcore.hexgl.HexGL.prototype.start = function()
 		raf();
 
 	this.initGameplay();
+}
+
+bkcore.hexgl.HexGL.prototype.canTogglePauseMenu = function()
+{
+	return this.pauseMenu !== null
+		&& this.active
+		&& this.gameplay !== null
+		&& this.containers.main !== null
+		&& this.containers.main.parentElement !== null
+		&& this.containers.main.parentElement.style.display !== 'none';
+}
+
+bkcore.hexgl.HexGL.prototype.bindPauseMenu = function()
+{
+	if(this.pauseHandlersBound || this.pauseMenu === null)
+		return;
+
+	var self = this;
+
+	this.pauseResumeButton !== null && (this.pauseResumeButton.onclick = function() {
+		self.resumeFromPause();
+	});
+
+	this.pauseResetButton !== null && (this.pauseResetButton.onclick = function() {
+		self.resetFromPause();
+	});
+
+	this.pauseHomeButton !== null && (this.pauseHomeButton.onclick = function() {
+		self.returnToHome();
+	});
+
+	this.pauseHandlersBound = true;
+}
+
+bkcore.hexgl.HexGL.prototype.togglePauseMenu = function()
+{
+	if(this.isPaused)
+		this.resumeFromPause();
+	else
+		this.showPauseMenu();
+}
+
+bkcore.hexgl.HexGL.prototype.showPauseMenu = function()
+{
+	if(this.isPaused || !this.canTogglePauseMenu())
+		return;
+
+	this.isPaused = true;
+	this.pauseMenu.style.display = 'block';
+	this.pauseMenu.setAttribute('aria-hidden', 'false');
+
+	if(this.gameplay !== null)
+		this.gameplay.active = false;
+
+	if(this.components.shipControls != null)
+		this.components.shipControls.active = false;
+}
+
+bkcore.hexgl.HexGL.prototype.resumeFromPause = function()
+{
+	if(!this.isPaused)
+		return;
+
+	this.isPaused = false;
+	this.pauseMenu !== null && (this.pauseMenu.style.display = 'none');
+	this.pauseMenu !== null && this.pauseMenu.setAttribute('aria-hidden', 'true');
+
+	if(this.gameplay !== null)
+		this.gameplay.active = true;
+
+	if(this.components.shipControls != null && this.gameplay !== null)
+		this.components.shipControls.active = this.gameplay.step == 4 && this.gameplay.result == this.gameplay.results.NONE;
+}
+
+bkcore.hexgl.HexGL.prototype.resetFromPause = function()
+{
+	if(this.isPaused)
+	{
+		this.isPaused = false;
+		this.pauseMenu !== null && (this.pauseMenu.style.display = 'none');
+		this.pauseMenu !== null && this.pauseMenu.setAttribute('aria-hidden', 'true');
+	}
+
+	if(this.gameplay !== null)
+		this.gameplay.active = true;
+
+	if(this.components.shipControls != null)
+		this.components.shipControls.active = false;
+
+	this.reset();
+}
+
+bkcore.hexgl.HexGL.prototype.returnToHome = function()
+{
+	if(this.pauseMenu !== null && this.pauseMenu.contains(this.document.activeElement))
+		this.document.activeElement.blur();
+
+	if(this.isPaused)
+	{
+		this.isPaused = false;
+		this.pauseMenu !== null && (this.pauseMenu.style.display = 'none');
+		this.pauseMenu !== null && this.pauseMenu.setAttribute('aria-hidden', 'true');
+	}
+
+	window.location.reload();
 }
 
 bkcore.hexgl.HexGL.prototype.reset = function()
@@ -150,6 +270,8 @@ bkcore.hexgl.HexGL.prototype.init = function()
 
 bkcore.hexgl.HexGL.prototype.load = function(opts)
 {
+	opts = opts || {};
+	opts.shipTexture = this.shipTexture;
 	this.track.load(opts, this.quality);
 }
 

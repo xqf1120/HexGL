@@ -40,6 +40,7 @@ bkcore.hexgl.tracks.Cityscape = {
 	load: function(opts, quality)
 	{
 		this.lib = new bkcore.threejs.Loader(opts);
+		var shipTexture = opts.shipTexture || {};
 
 		// desktop + quality low
 		// OR
@@ -51,7 +52,7 @@ bkcore.hexgl.tracks.Cityscape = {
 					'hex'								: "textures/hud/hex.jpg",
 					'spark'								: "textures/particles/spark.png",
 					'cloud'								: "textures/particles/cloud.png",
-					'ship.feisar.diffuse'				: "textures/ships/feisar/diffuse.jpg",
+					'ship.feisar.diffuse'				: shipTexture.low || "textures/ships/feisar/diffuse.jpg",
 					'booster.diffuse'					: "textures/ships/feisar/booster/booster.png",
 					'booster.sprite'					: "textures/ships/feisar/booster/boostersprite.jpg",
 					'track.cityscape.diffuse'			: "textures/tracks/cityscape/diffuse.jpg",
@@ -123,7 +124,7 @@ bkcore.hexgl.tracks.Cityscape = {
 					'hex'								: "textures.full/hud/hex.jpg",
 					'spark'								: "textures.full/particles/spark.png",
 					'cloud'								: "textures.full/particles/cloud.png",
-					'ship.feisar.diffuse'				: "textures.full/ships/feisar/diffuse.jpg",
+					'ship.feisar.diffuse'				: shipTexture.high || "textures.full/ships/feisar/diffuse.jpg",
 					'ship.feisar.specular'				: "textures.full/ships/feisar/specular.jpg",
 					'ship.feisar.normal'				: "textures.full/ships/feisar/normal.jpg",
 					'booster.diffuse'					: "textures.full/ships/feisar/booster/booster.png",
